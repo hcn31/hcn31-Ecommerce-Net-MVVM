@@ -41,6 +41,11 @@
                             <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.ProduitID">Détails</a>
                             <a class="btn btn-info" asp-page="./Edit" asp-route-id="@item.ProduitID">Modifier</a>
                             <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.ProduitID">Supprimer</a>
+                            <form method="post" asp-page-handler="AddToCart" asp-route-productId="@item.ProduitID">
+                                <button type="submit" class="btn btn-primary">
+                                    Ajouter au panier
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

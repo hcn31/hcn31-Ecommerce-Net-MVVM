@@ -1,5 +1,4 @@
-﻿
-namespace TPPro.Model
+﻿namespace TPPro.Model
 {
     public class Categorie
     {

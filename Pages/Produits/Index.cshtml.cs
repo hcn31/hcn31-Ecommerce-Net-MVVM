@@ -13,10 +13,12 @@ namespace TPPro.Pages.Produits
     public class IndexModel : PageModel
     {
         private readonly TPPro.Data.DataContext _context;
+        private readonly CartService _cartService;
 
-        public IndexModel(TPPro.Data.DataContext context)
+        public IndexModel(TPPro.Data.DataContext context, CartService cartService)
         {
             _context = context;
+            _cartService = cartService;
         }
 
         public IList<Produit> Produit { get;set; } = default!;
@@ -35,6 +37,21 @@ namespace TPPro.Pages.Produits
                 else Produit = await _context.Produits.Include(p => p.Categorie).ToListAsync();
             }
            
+        }
+        public IActionResult OnPostAddToCart(int productId)
+        {
+            var product = _context.Produits.FirstOrDefault(p => p.ProduitID == productId);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            var cart = _cartService.GetCart();
+
+            cart.Produits.Add(product);
+            _cartService.SaveCart(cart);
+
+            return RedirectToPage("/Produits/Index");
         }
     }
 }

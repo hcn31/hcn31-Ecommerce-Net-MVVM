@@ -1,0 +1,37 @@
+﻿@page
+@model TPPro.Pages.Carts.IndexModel
+@{
+    ViewData["Title"] = "Panier";
+}
+
+@if (Model.Cart.Produits.Count == 0)
+{
+    <p>Votre panier est vide.</p>
+}
+else
+{
+    <ul>
+        <div class="row">
+            @foreach (var item in Model.Cart.Produits)
+            {
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="/@item.ImagePath" alt="@item.ProduitName" style="width: 200px; height: 200px;">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.ProduitName</h5>
+                            <p class="card-text">Price: @item.Prix</p>
+
+                            <div >
+                                <form method="post" asp-page-handler="RemoveFromCart" asp-route-productId="@item.ProduitID">
+                                    <button type="submit">Supprimer</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+        </div>
+    </ul>
+}
